@@ -1,0 +1,109 @@
+<div class="card">
+    <div class="spinner-border text-dark pt-2 " *ngIf="isLoading$ | async" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="card-header border-0 pt-6">
+        <div class="card-title">
+            <div class="d-flex align-items-center position-relative my-1">
+                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i>
+                <input (keyup.enter)="searchTo()" [(ngModel)]="search" type="text" data-kt-user-table-filter="search"
+                    class="form-control form-control-solid w-250px ps-13" placeholder="Search slider">
+            </div>
+        </div>
+        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+
+            <a routerLink="/sliders/register" class="btn btn-primary">Add Slider</a>
+        </div>
+    </div>
+    <div class="card-body py-4">
+        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
+                    <thead>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="User: activate to sort column ascending"
+                                style="width: 215.016px;">Title</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="Role: activate to sort column ascending" style="width: 125px;">
+                                Label</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="Last login: activate to sort column ascending"
+                                style="width: 125px;">Subtitle</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="Two-step: activate to sort column ascending"
+                                style="width: 125px;">Status</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1"
+                                colspan="1" aria-label="Two-step: activate to sort column ascending"
+                                style="width: 125px;">Color</th>
+                            <th class="text-center min-w-100px sorting_disabled" rowspan="1" colspan="1"
+                                aria-label="Actions" style="width: 100px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 fw-semibold">
+                        <ng-container *ngFor="let slider of sliders">
+                            <tr class="odd">
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-45px me-5" *ngIf="slider.imagen">
+                                            <img alt="Pic" [src]="slider.imagen">
+                                        </div>
+
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <a href="#" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">
+                                                {{slider.title}}
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{slider.label}}
+                                </td>
+                                <td>
+                                    {{slider.subtitle}}
+                                </td>
+                                <td>
+                                    <span class="badge badge-light-success" *ngIf="slider.status==='1'">Activo</span>
+                                    <span class="badge badge-light-danger" *ngIf="slider.status==='0'">Inactivo</span>
+                                </td>
+                                <td>
+                                    {{slider.color}}
+                                </td>
+                                <td class="text-center">
+                                    <a [routerLink]="['/sliders/list/edit',slider.id]"
+                                        routerLinkActive="router-link-active"
+                                        class="btn btn-icon btn-active-light-primary w-30px h-30px me-3"
+                                        data-action="edit" data-id="221">
+                                        <i class="ki-duotone ki-pencil fs-3"><span class="path1"></span><span
+                                                class="path2"></span></i>
+                                    </a>
+
+                                    <a href="#" onclick="return false;" (click)="deleteSlider(slider)"
+                                        class="btn btn-icon btn-active-light-primary w-30px h-30px" data-action="delete"
+                                        data-id="221">
+                                        <i class="ki-duotone ki-trash fs-3">
+                                            <span class="path1"></span><span class="path2"></span>
+                                            <span class="path3"></span><span class="path4"></span><span
+                                                class="path5"></span>
+                                        </i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+                <ngb-pagination [collectionSize]="totalPages" [(page)]="currentPage" [pageSize]="10" [rotate]="true"
+                    [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+
+            </div>
+
+        </div>
+    </div>
+</div>

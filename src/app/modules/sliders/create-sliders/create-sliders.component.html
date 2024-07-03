@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="spinner-border text-dark pt-2 " *ngIf="isLoading$ | async" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="card-body border-top p-9">
+
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">Title:</label>
+                <input type="text" name="title" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. Computer" [(ngModel)]="title">
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6">Label:</label>
+                <input type="text" name="label" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. 999.99" [(ngModel)]="label">
+            </div>
+
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                <label class=" required form-label">Sube tu imagen:</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile"
+                        accept=".png," (change)="processFile($event)">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <div>
+                    <img [src]="image_preview" class="theme-light-show w-200px" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">Subtitle:</label>
+                <input type="text" name="subtitle" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. Computer" [(ngModel)]="subtitle">
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6">Link:</label>
+                <input type="text" name="link" class="form-control form-control-lg form-control-solid"
+                    placeholder="https://youtalkonline.com/wp-content/uploads/Mejora-tu-pronunciaci%C3%B3n-online-con-El-ingl%C3%A9s-de-Cristiano-Ronaldo.jpg.webp"
+                    [(ngModel)]="link">
+            </div>
+            <div class="col-lg-2 fv-row fv-plugins-icon-container">
+                <label for="color" class="fw-bold fs-6 mb-2">Color: </label>
+                <input class="form-control fw-bold fs-6 mb-2" type="color" id="color" name="color"
+                    [(ngModel)]="color" />
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="save()">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

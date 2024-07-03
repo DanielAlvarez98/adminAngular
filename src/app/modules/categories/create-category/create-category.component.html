@@ -1,0 +1,120 @@
+<div class="card">
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-body border-top p-9">
+        <div class="row g-9 mb-6">
+            <div class="col-4">
+                <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6"
+                    [ngClass]="{'active': type_category===1}" data-kt-button="true">
+                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                        <input class="form-check-input" type="radio" (click)="changeTypeCategory(1)" name="usage"
+                            value="1" checked="checked">
+                    </span>
+                    <span class="ms-5">
+                        <span class="fs-6 fw-bolder mb-1 d-block">Department</span>
+                        <small>First level</small>
+                    </span>
+                </label>
+            </div>
+            <div class="col-4">
+                <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6"
+                    [ngClass]="{'active':  type_category===2}" data-kt-button="true">
+                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                        <input class="form-check-input" type="radio" (click)="changeTypeCategory(2)" name="usage"
+                            value="2">
+                    </span>
+                    <span class="ms-5">
+                        <span class="fs-6 fw-bolder mb-1 d-block">Category</span>
+                        <small>Second level</small>
+                    </span>
+                </label>
+            </div>
+            <div class="col-4">
+                <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6"
+                    [ngClass]="{'active':  type_category===3}" data-kt-button="true">
+                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                        <input class="form-check-input" type="radio" (click)="changeTypeCategory(3)" name="usage"
+                            value="2">
+                    </span>
+                    <span class="ms-5">
+                        <span class="fs-6 fw-bolder mb-1 d-block">Subcategory</span>
+                        <small>Third level</small>
+                    </span>
+                </label>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">Name:</label>
+                <input type="text" name="name" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. Computer" [(ngModel)]="name">
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="{{type_category===1 ? 'required':''}} fw-semibold fs-6">Icon:</label>
+                <input type="text" name="icon" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. Computer" [(ngModel)]="icon">
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                <label class=" {{type_category===1 ? 'required':''}} form-label">Sube tu imagen:</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile"
+                        accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <div>
+                    <img [src]="image_preview" class="theme-light-show w-200px" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">Position:</label>
+                <input type="number" name="position" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. 4" [(ngModel)]="position">
+            </div>
+        </div>
+        <div class="row mb-6" *ngIf="type_category!==1">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2" *ngIf="type_category===2">
+                <label class="required fw-semibold fs-6">Department:(First level)</label>
+                <select class="form-control form-select-solid fw-bolder" name="department"
+                    placeholder="Selec. Department" [(ngModel)]="category_second_id">
+
+                    <option value="">Select.</option>
+                    <ng-container *ngFor="let item of categories_first">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2" *ngIf="type_category===3">
+                <label class="required fw-semibold fs-6">Department:(First level)</label>
+                <select class="form-control form-select-solid fw-bolder" name="department"
+                    placeholder="Selec. Department" [(ngModel)]="category_third_id"
+                    (change)="changeDepartament()" >
+
+                    <option value="">Select.</option>
+                    <ng-container *ngFor="let item of categories_first">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2" *ngIf="type_category===3">
+                <label class="required fw-semibold fs-6">Category:(Second level)</label>
+                <select class="form-control form-select-solid fw-bolder" name="category" placeholder="Selec. Category"
+                    [(ngModel)]="category_second_id">
+
+                    <option value="">Select.</option>
+                    <ng-container *ngFor="let item of categories_second_backups">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+
+        </div>
+        <div class="row mb-6">
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="save()">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

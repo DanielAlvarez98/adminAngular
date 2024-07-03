@@ -1,0 +1,132 @@
+<div class="card">
+    <div class="spinner-border text-dark pt-2 " *ngIf="isLoading$ | async" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="card-body border-top p-9">
+
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">Title:</label>
+                <input type="text" name="title" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. Computer" [(ngModel)]="title">
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">SKU:</label>
+                <input type="text" name="sku" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. ZDR456" [(ngModel)]="sku">
+            </div>
+
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">Preci Pen:</label>
+                <input type="number" name="price_pen" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. 20 PEN" [(ngModel)]="price_pen">
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fw-semibold fs-6">Preci USD:</label>
+                <input type="number" name="price_usd" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. 20 USD" [(ngModel)]="price_usd">
+            </div>
+
+        </div>
+        <div class="row mb-6">
+            <div class="col-4">
+                <label class="required fw-semibold fs-6">Department:(First level)</label>
+                <select class="form-control form-select-solid fw-bolder" name="department"
+                    placeholder="Selec. Department" [(ngModel)]="category_first_id" (change)="changeDepartament()">
+
+                    <option value="">Select.</option>
+                    <ng-container *ngFor="let item of categories_first">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+            <div class="col-4">
+                <label class=" fw-semibold fs-6">Category:(Second level)</label>
+                <select class="form-control form-select-solid fw-bolder" name="category" placeholder="Selec. Category"
+                    [(ngModel)]="category_second_id" (change)="changeCategory()">
+
+                    <option value="">Select.</option>
+                    <ng-container *ngFor="let item of categories_second_backups">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+            <div class="col-4">
+                <label class=" fw-semibold fs-6">Sub Category:(Third level)</label>
+                <select class="form-control form-select-solid fw-bolder" name="subcategory"
+                    placeholder="Selec. Category" [(ngModel)]="category_third_id">
+
+                    <option value="">Select.</option>
+                    <ng-container *ngFor="let item of categories_thirds_backups">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-4">
+                <label class=" fw-semibold fs-6">Word:</label>
+                <input type="text" name="word" class="form-control form-control-lg form-control-solid"
+                    placeholder="Ejm. XXXXX" [(ngModel)]="word" (keyup.enter)="addItems()">
+            </div>
+
+            <div class="col-lg-4" *ngIf="!isShowMultiSelect">
+                <label class="required fw-semibold fs-6">Tags:</label>
+
+                <ng-multiselect-dropdown [placeholder]="'Tags placeholder'" [settings]="dropdownSettings"
+                    [data]="dropdownList" [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)">
+                </ng-multiselect-dropdown>
+            </div>
+            <div class="col-lg-4">
+                <label class="required fw-semibold fs-6">Marca:</label>
+                <select class="form-control form-select-solid fw-bolder" name="marca" placeholder="Selec. Marca"
+                    [(ngModel)]="marca_id">
+
+                    <option value="">Select.</option>
+                    <ng-container *ngFor="let item of marcas">
+                        <option [value]="item.id">{{item.name}}</option>
+                    </ng-container>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row mb-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                <label class=" required form-label">Sube tu imagen:</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" accept=".png,"
+                        (change)="processFile($event)">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <div>
+                    <img [src]="image_preview" class="theme-light-show w-200px" alt="">
+                </div>
+            </div>
+
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="required fs-6 fw-semibold mb-2">Description:</label>
+                <ckeditor [data]="description" (change)="onChange($event)"></ckeditor>
+
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class=" required fs-6 fw-semibold mb-2">Summary:</label>
+                <textarea class="form-control form-control-solid" rows="3" name="summary"
+                    placeholder="Type Target Summary" [(ngModel)]="summary"></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="save()">Save</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
